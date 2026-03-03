@@ -1,6 +1,6 @@
 export default function App() {
   return (
-    <div className="fade-in">
+   <div className="background-fade">
       <div
         style={{
           backgroundImage: "url('/snake.jpeg')",
@@ -30,7 +30,7 @@ export default function App() {
         />
 
         {/* Content */}
-        <div style={{ position: "relative", zIndex: 2 }}>
+      <div className="content-fade" style={{ position: "relative", zIndex: 2 }}>
           <h1
             style={{
               fontSize: "48px",
