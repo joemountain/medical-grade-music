@@ -1,6 +1,7 @@
 export default function App() {
   return (
    <div className="background-fade">
+    <div className="black-fade"></div>
       <div
         style={{
           backgroundImage: "url('/snake.jpeg')",
