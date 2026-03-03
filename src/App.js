@@ -15,6 +15,9 @@ export default function App() {
         fontFamily: "Arial, sans-serif",
         position: "relative",
         color: "white",
+        <div className="fade-in">
+  ...existing content...
+</div>
       }}
     >
       {/* Dark overlay so text is readable but snake still visible */}
