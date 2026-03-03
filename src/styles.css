@@ -2,3 +2,13 @@
   font-family: sans-serif;
   text-align: center;
 }
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
