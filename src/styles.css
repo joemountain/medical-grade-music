@@ -2,13 +2,26 @@
   font-family: sans-serif;
   text-align: center;
 }
-.fade-in {
+
+.background-fade {
   opacity: 0;
-  transform: translateY(8px);
-  animation: fadeIn 2.5s ease forwards;
+  animation: backgroundFade 2s ease forwards;
 }
 
-@keyframes fadeIn {
+.content-fade {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: contentFade 2s ease forwards;
+  animation-delay: 1s;
+}
+
+@keyframes backgroundFade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentFade {
   to {
     opacity: 1;
     transform: translateY(0);
