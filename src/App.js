@@ -258,7 +258,7 @@ export default function App() {
               href="https://www.instagram.com/medical_grade_music/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{marginTop:"30px",display:"inline-block"}
+            style={{marginTop:"30px",display:"inline-block"}}
             >
 
               <svg
