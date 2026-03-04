@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 
 export default function App() {
-  const [authorized, setAuthorized] = useState(false);
+const [authorized, setAuthorized] = useState(
+  localStorage.getItem("mgm_authorized") === "true"
+);
   const [password, setPassword] = useState("");
   const audioRef = useRef(null);
   const audioContextRef = useRef(null);
@@ -10,7 +12,7 @@ const filterRef = useRef(null);
 const handleSubmit = (e) => {
   e.preventDefault();
 
-  if (password === "thebeatles2026") {
+  if (password === "nowindows13th!") {
     if (audioRef.current) {
       const audio = audioRef.current;
 
@@ -71,7 +73,8 @@ filterRef.current.frequency.value = Math.min(
       }, fadeInStepTime);
     }
 
-    setAuthorized(true);
+localStorage.setItem("mgm_authorized", "true");
+setAuthorized(true);
   }
 }; 
   useEffect(() => {
@@ -139,18 +142,20 @@ const volumeStep = targetVolume / steps;
         >
           <form onSubmit={handleSubmit} style={{ textAlign: "center" }}>
             <p>Enter Password</p>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{
-                padding: "10px",
-                marginTop: "10px",
-                background: "black",
-                color: "white",
-                border: "1px solid white"
-              }}
-            />
+<input
+  type="password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  style={{
+    padding: "10px",
+    marginTop: "10px",
+    background: "black",
+    color: "white",
+    border: "1px solid white"
+  }}
+/>
+
+<button type="submit" style={{ display: "none" }} />
           </form>
         </div>
       ) : (
