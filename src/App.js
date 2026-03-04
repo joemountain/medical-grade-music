@@ -74,7 +74,7 @@ filterRef.current.frequency.value = Math.min(
 
    const targetVolume = 0.18;
 
-const fadeOutDuration = 3500;
+const fadeOutDuration = 3000;
 const fadeInDuration = 6000;
 
 const steps = 60;
