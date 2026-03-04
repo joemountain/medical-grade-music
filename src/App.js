@@ -11,8 +11,6 @@ export default function App() {
 
   const audioRef = useRef(null);
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -21,8 +19,6 @@ export default function App() {
       setAuthorized(true);
     }
   };
-
-
 
   const handleEnter = () => {
 
@@ -69,8 +65,6 @@ export default function App() {
     }, 1600);
 
   };
-
-
 
   useEffect(() => {
 
@@ -147,8 +141,6 @@ export default function App() {
 
   }, []);
 
-
-
   return (
 
     <>
@@ -156,9 +148,17 @@ export default function App() {
 
       {!authorized ? (
 
-        <div className="center-screen">
+        <div style={{
+          height:"100vh",
+          background:"black",
+          display:"flex",
+          alignItems:"center",
+          justifyContent:"center",
+          color:"white",
+          fontFamily:"Arial, sans-serif"
+        }}>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} style={{textAlign:"center"}}>
 
             <p>Enter Password</p>
 
@@ -166,9 +166,16 @@ export default function App() {
               type="password"
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
+              style={{
+                padding:"10px",
+                marginTop:"10px",
+                background:"black",
+                color:"white",
+                border:"1px solid white"
+              }}
             />
 
-            <button type="submit" hidden />
+            <button type="submit" style={{display:"none"}} />
 
           </form>
 
@@ -176,9 +183,27 @@ export default function App() {
 
       ) : !entered ? (
 
-        <div className="center-screen">
+        <div style={{
+          height:"100vh",
+          background:"black",
+          display:"flex",
+          alignItems:"center",
+          justifyContent:"center",
+          color:"white",
+          fontFamily:"Arial, sans-serif"
+        }}>
 
-          <button onClick={handleEnter}>
+          <button
+            onClick={handleEnter}
+            style={{
+              padding:"14px 28px",
+              background:"black",
+              color:"white",
+              border:"1px solid white",
+              letterSpacing:"2px",
+              cursor:"pointer"
+            }}
+          >
             ENTER
           </button>
 
@@ -186,23 +211,49 @@ export default function App() {
 
       ) : (
 
-        <div className="background-fade page">
+        <div className="background-fade" style={{
+          backgroundImage:"url('/snake.jpeg')",
+          backgroundSize:"60%",
+          backgroundPosition:"center",
+          minHeight:"100vh",
+          display:"flex",
+          flexDirection:"column",
+          alignItems:"center",
+          justifyContent:"center",
+          textAlign:"center",
+          fontFamily:"Arial, sans-serif",
+          position:"relative",
+          color:"white"
+        }}>
 
           <div className="black-fade"></div>
 
-          <div className="overlay"></div>
+          <div style={{
+            position:"absolute",
+            top:0,
+            left:0,
+            width:"100%",
+            height:"100%",
+            backgroundColor:"rgba(0,0,0,0.55)"
+          }}/>
 
-          <div className="content-fade content">
+          <div className="content-fade" style={{position:"relative",zIndex:2}}>
 
-            <h1>MEDICAL GRADE MUSIC</h1>
+            <h1 style={{fontSize:"48px",letterSpacing:"3px"}}>
+              MEDICAL GRADE MUSIC
+            </h1>
 
-            <p>No cure. Coming Soon.</p>
+            <p style={{fontSize:"20px",marginBottom:"30px"}}>
+              No cure. Coming Soon.
+            </p>
 
             <a
               href="https://www.instagram.com/medical_grade_music/"
               target="_blank"
               rel="noopener noreferrer"
+              style={{marginTop:"30px",display:"inline-block"}}
             >
+
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
@@ -210,8 +261,11 @@ export default function App() {
                 viewBox="0 0 24 24"
                 fill="white"
               >
-                <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 2h8.5C18.007 4 20 5.993 20 7.75v8.5C20 18.007 18.007 20 16.25 20h-8.5C5.993 20 4 18.007 4 16.25v-8.5C4 5.993 5.993 4 7.75 4zm8.75 1.5a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
+
+                <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5z"/>
+
               </svg>
+
             </a>
 
           </div>
