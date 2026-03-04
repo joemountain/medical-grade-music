@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+ok cool, think I've got it - will this works? import { useState, useRef, useEffect } from "react";
 
 export default function App() {
 
@@ -10,9 +10,6 @@ const [password, setPassword] = useState("");
 const [entered, setEntered] = useState(false);
 
 const audioRef = useRef(null);
-const audioContextRef = useRef(null);
-const filterRef = useRef(null);
-
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -25,7 +22,6 @@ const handleSubmit = (e) => {
   }
 };
 
-
 const handleEnter = () => {
 
   const audio = audioRef.current;
@@ -33,34 +29,16 @@ const handleEnter = () => {
 
   audio.volume = 0;
 
-  if (!audioContextRef.current) {
+  setTimeout(() => {
 
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    audioContextRef.current = new AudioContext();
+    const duration = audio.duration;
 
-    const source = audioContextRef.current.createMediaElementSource(audio);
-    const filter = audioContextRef.current.createBiquadFilter();
+    if (!isNaN(duration) && duration > 0) {
+      const randomStart = Math.random() * duration;
+      audio.currentTime = randomStart;
+    }
 
-    filter.type = "lowpass";
-    filter.frequency.value = 400;
-
-    source.connect(filter);
-    filter.connect(audioContextRef.current.destination);
-
-    filterRef.current = filter;
-
-  }
-
-setTimeout(() => {
-
-  const duration = audio.duration;
-
-  if (!isNaN(duration) && duration > 0) {
-    const randomStart = Math.random() * duration;
-    audio.currentTime = randomStart;
-  }
-
-  audio.play().catch(() => {});
+    audio.play().catch(() => {});
 
   const targetVolume = 0.18;
   const introFadeDuration = 6000;
@@ -77,17 +55,6 @@ setTimeout(() => {
 
       audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
 
-      if (filterRef.current) {
-
-        const progress = currentStep / steps;
-
-        filterRef.current.frequency.value = Math.min(
-          20000,
-          400 * Math.pow(45, progress)
-        );
-
-      }
-
       currentStep++;
 
     } else {
@@ -98,50 +65,11 @@ setTimeout(() => {
 
   }, fadeInStepTime);
 
-}, 800);
-
-
-  const targetVolume = 0.18;
-  const introFadeDuration = 6000;
-  const steps = 60;
-
-  const fadeInStepTime = introFadeDuration / steps;
-  const volumeStep = targetVolume / steps;
-
-  let currentStep = 0;
-
-  const fadeIn = setInterval(() => {
-
-    if (currentStep < steps) {
-
-      audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
-
-      if (filterRef.current) {
-
-        const progress = currentStep / steps;
-
-        filterRef.current.frequency.value = Math.min(
-          20000,
-          400 * Math.pow(45, progress)
-        );
-
-      }
-
-      currentStep++;
-
-    } else {
-
-      clearInterval(fadeIn);
-
-    }
-
-  }, fadeInStepTime);
+      }, 800); 
 
   setEntered(true);
 
 };
-
-
 
 useEffect(() => {
 
