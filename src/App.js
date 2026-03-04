@@ -39,7 +39,6 @@ const introFadeDuration = 6000;
 
 const steps = 60;
 
-const fadeOutStepTime = fadeOutDuration / steps;
 const fadeInStepTime = introFadeDuration / steps;
 
 const volumeStep = targetVolume / steps;
