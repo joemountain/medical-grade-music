@@ -5,19 +5,37 @@ export default function App() {
   const [password, setPassword] = useState("");
   const audioRef = useRef(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    if (password === "thebeatles2026") {
-      if (audioRef.current) {
-        audioRef.current.play().catch((err) => {
-          console.log("Audio blocked:", err);
-        });
-      }
+  if (password === "thebeatles2026") {
+    if (audioRef.current) {
+      const audio = audioRef.current;
 
-      setAuthorized(true);
+      audio.volume = 0;
+      audio.play().catch(() => {});
+
+      const targetVolume = 0.18; // precise max volume
+      const fadeDuration = 4000; // 4 seconds fade
+      const steps = 60;
+      const stepTime = fadeDuration / steps;
+      const volumeStep = targetVolume / steps;
+
+      let currentStep = 0;
+
+      const fadeIn = setInterval(() => {
+        if (currentStep < steps) {
+          audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+          currentStep++;
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, stepTime);
     }
-  };
+
+    setAuthorized(true);
+  }
+};
 
   return (
     <>
