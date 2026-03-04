@@ -17,7 +17,6 @@ body {
 /* page background */
 
 .page{
-  background-image:url("/snake.jpeg");
   background-size:60%;
   background-position:center;
   min-height:100vh;
