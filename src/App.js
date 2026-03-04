@@ -93,7 +93,10 @@ export default function App() {
             const progress = currentStep / steps;
             const curve = Math.pow(progress, 2);
 
-            audio.volume = targetVolume * (1 - curve);
+audio.volume = Math.max(
+  targetVolume * (1 - progress * progress),
+  0
+);
 
             currentStep++;
 
