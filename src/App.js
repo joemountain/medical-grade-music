@@ -52,19 +52,24 @@ const handleEnter = () => {
 
     const fadeIn = setInterval(() => {
 
-      if (currentStep < steps) {
+  if (currentStep < steps) {
 
-        audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
-        currentStep++;
+    const progress = currentStep / steps;
 
-      } else {
+    audio.volume = Math.min(
+      targetVolume,
+      targetVolume * Math.pow(progress, 2)
+    );
 
-        clearInterval(fadeIn);
+    currentStep++;
 
-      }
+  } else {
 
-    }, fadeInStepTime);
+    clearInterval(fadeIn);
 
+  }
+
+}, fadeInStepTime);
   }, 800);
 
 };
