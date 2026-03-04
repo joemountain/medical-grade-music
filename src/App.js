@@ -4,6 +4,8 @@ export default function App() {
   const [authorized, setAuthorized] = useState(false);
   const [password, setPassword] = useState("");
   const audioRef = useRef(null);
+  const audioContextRef = useRef(null);
+const filterRef = useRef(null);
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -13,7 +15,23 @@ const handleSubmit = (e) => {
       const audio = audioRef.current;
 
       audio.volume = 0;
-      audio.play().catch(() => {});
+    if (!audioContextRef.current) {
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  audioContextRef.current = new AudioContext();
+
+  const source = audioContextRef.current.createMediaElementSource(audio);
+  const filter = audioContextRef.current.createBiquadFilter();
+
+  filter.type = "lowpass";
+  filter.frequency.value = 400;
+
+  source.connect(filter);
+  filter.connect(audioContextRef.current.destination);
+
+  filterRef.current = filter;
+}
+
+audio.play().catch(() => {});
 
    const targetVolume = 0.18;
 
@@ -32,6 +50,13 @@ const volumeStep = targetVolume / steps;
       const fadeIn = setInterval(() => {
         if (currentStep < steps) {
           audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+          if (filterRef.current) {
+  const progress = currentStep / steps;
+filterRef.current.frequency.value = Math.min(
+  20000,
+  400 * Math.pow(45, progress)
+);
+}
           currentStep++;
         } else {
           clearInterval(fadeIn);
@@ -49,7 +74,7 @@ const volumeStep = targetVolume / steps;
 
    const targetVolume = 0.18;
 
-const fadeOutDuration = 4000;
+const fadeOutDuration = 3500;
 const fadeInDuration = 6000;
 
 const steps = 60;
