@@ -84,29 +84,31 @@ export default function App() {
 
       let currentStep = 0;
 
-      if (document.hidden) {
+if (document.hidden) {
 
-        const fadeOut = setInterval(() => {
+  const startVolume = audio.volume;
 
-          if (currentStep < steps) {
+  const fadeOut = setInterval(() => {
 
-            const progress = currentStep / steps;
-            const curve = Math.pow(progress, 2);
+    if (currentStep < steps) {
 
-audio.volume = Math.max(
-  targetVolume * (1 - progress * progress),
-  0
-);
+      const progress = currentStep / steps;
 
-            currentStep++;
+      audio.volume = Math.max(
+        startVolume * (1 - progress * progress),
+        0
+      );
 
-          } else {
+      currentStep++;
 
-            clearInterval(fadeOut);
+    } else {
 
-          }
+      audio.volume = 0;
+      clearInterval(fadeOut);
 
-        }, fadeOutStepTime);
+    }
+
+  }, fadeOutStepTime);
 
       } else {
 
