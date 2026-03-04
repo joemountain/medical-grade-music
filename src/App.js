@@ -42,7 +42,7 @@ const handleSubmit = (e) => {
     if (!audio) return;
 
     const targetVolume = 0.18;
-    const fadeDuration = 1500;
+ const fadeDuration = 3000;
     const steps = 30;
     const stepTime = fadeDuration / steps;
     const volumeStep = targetVolume / steps;
