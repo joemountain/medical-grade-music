@@ -35,13 +35,12 @@ audio.play().catch(() => {});
 
    const targetVolume = 0.18;
 
-const fadeOutDuration = 3500;   // leaving tab
-const fadeInDuration = 6000;    // returning to tab
+const introFadeDuration = 6000;
 
 const steps = 60;
 
 const fadeOutStepTime = fadeOutDuration / steps;
-const fadeInStepTime = fadeInDuration / steps;
+const fadeInStepTime = introFadeDuration / steps;
 
 const volumeStep = targetVolume / steps;
 
