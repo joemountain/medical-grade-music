@@ -10,19 +10,9 @@ const handleSubmit = (e) => {
 
   if (password === "thebeatles2026") {
     if (audioRef.current) {
-      audioRef.current.muted = true;
-      audioRef.current.play().catch(() => {});
-
-      audioRef.current.muted = false;
-      audioRef.current.volume = 0;
-
-      let fade = setInterval(() => {
-        if (audioRef.current.volume < 0.2) {
-          audioRef.current.volume += 0.01;
-        } else {
-          clearInterval(fade);
-        }
-      }, 100);
+      audioRef.current.play().catch((err) => {
+        console.log("Audio blocked:", err);
+      });
     }
 
     setAuthorized(true);
