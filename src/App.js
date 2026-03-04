@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function App() {
   const [authorized, setAuthorized] = useState(false);
@@ -35,7 +35,49 @@ const handleSubmit = (e) => {
 
     setAuthorized(true);
   }
-};
+}; 
+  useEffect(() => {
+  const handleVisibility = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const targetVolume = 0.18;
+    const fadeDuration = 1500;
+    const steps = 30;
+    const stepTime = fadeDuration / steps;
+    const volumeStep = targetVolume / steps;
+
+    let currentStep = 0;
+
+    if (document.hidden) {
+      // Fade out
+      const fadeOut = setInterval(() => {
+        if (currentStep < steps) {
+          audio.volume = Math.max(audio.volume - volumeStep, 0);
+          currentStep++;
+        } else {
+          clearInterval(fadeOut);
+        }
+      }, stepTime);
+    } else {
+      // Fade back in
+      const fadeIn = setInterval(() => {
+        if (currentStep < steps) {
+          audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+          currentStep++;
+        } else {
+          clearInterval(fadeIn);
+        }
+      }, stepTime);
+    }
+  };
+
+  document.addEventListener("visibilitychange", handleVisibility);
+
+  return () => {
+    document.removeEventListener("visibilitychange", handleVisibility);
+  };
+}, []);
 
   return (
     <>
