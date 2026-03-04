@@ -15,11 +15,17 @@ const handleSubmit = (e) => {
       audio.volume = 0;
       audio.play().catch(() => {});
 
-      const targetVolume = 0.18; // precise max volume
-      const fadeDuration = 4000; // 4 seconds fade
-      const steps = 60;
-      const stepTime = fadeDuration / steps;
-      const volumeStep = targetVolume / steps;
+   const targetVolume = 0.18;
+
+const fadeOutDuration = 4000;   // leaving tab
+const fadeInDuration = 6000;    // returning to tab
+
+const steps = 60;
+
+const fadeOutStepTime = fadeOutDuration / steps;
+const fadeInStepTime = fadeInDuration / steps;
+
+const volumeStep = targetVolume / steps;
 
       let currentStep = 0;
 
@@ -30,7 +36,7 @@ const handleSubmit = (e) => {
         } else {
           clearInterval(fadeIn);
         }
-      }, stepTime);
+      }, fadeInStepTime);
     }
 
     setAuthorized(true);
@@ -41,35 +47,38 @@ const handleSubmit = (e) => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const targetVolume = 0.18;
- const fadeDuration = 4000;
-    const steps = 60;
-    const stepTime = fadeDuration / steps;
-    const volumeStep = targetVolume / steps;
+   const targetVolume = 0.18;
 
+const fadeOutDuration = 4000;
+const fadeInDuration = 6000;
+
+const steps = 60;
+
+const fadeOutStepTime = fadeOutDuration / steps;
+const fadeInStepTime = fadeInDuration / steps;
+
+const volumeStep = targetVolume / steps;
     let currentStep = 0;
 
-    if (document.hidden) {
-      // Fade out
-      const fadeOut = setInterval(() => {
-        if (currentStep < steps) {
-          audio.volume = Math.max(audio.volume - volumeStep, 0);
-          currentStep++;
-        } else {
-          clearInterval(fadeOut);
-        }
-      }, stepTime);
+ if (document.hidden) {
+  const fadeOut = setInterval(() => {
+    if (currentStep < steps) {
+      audio.volume = Math.max(audio.volume - volumeStep, 0);
+      currentStep++;
     } else {
-      // Fade back in
-      const fadeIn = setInterval(() => {
-        if (currentStep < steps) {
-          audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
-          currentStep++;
-        } else {
-          clearInterval(fadeIn);
-        }
-      }, stepTime);
+      clearInterval(fadeOut);
     }
+  }, fadeOutStepTime);
+} else {
+  const fadeIn = setInterval(() => {
+    if (currentStep < steps) {
+      audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+      currentStep++;
+    } else {
+      clearInterval(fadeIn);
+    }
+  }, fadeInStepTime);
+}
   };
 
   document.addEventListener("visibilitychange", handleVisibility);
