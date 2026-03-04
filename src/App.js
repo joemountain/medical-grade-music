@@ -36,7 +36,6 @@ export default function App() {
       const targetVolume = 0.18;
       const introFadeDuration = 6000;
       const steps = 60;
-
       const fadeInStepTime = introFadeDuration / steps;
 
       let currentStep = 0;
@@ -148,15 +147,7 @@ export default function App() {
 
       {!authorized ? (
 
-        <div style={{
-          height:"100vh",
-          background:"black",
-          display:"flex",
-          alignItems:"center",
-          justifyContent:"center",
-          color:"white",
-          fontFamily:"Arial, sans-serif"
-        }}>
+        <div className="center-screen">
 
           <form onSubmit={handleSubmit} style={{textAlign:"center"}}>
 
@@ -183,15 +174,7 @@ export default function App() {
 
       ) : !entered ? (
 
-        <div style={{
-          height:"100vh",
-          background:"black",
-          display:"flex",
-          alignItems:"center",
-          justifyContent:"center",
-          color:"white",
-          fontFamily:"Arial, sans-serif"
-        }}>
+        <div className="center-screen">
 
           <button
             onClick={handleEnter}
@@ -211,33 +194,13 @@ export default function App() {
 
       ) : (
 
-        <div className="background-fade" style={{
-          backgroundImage:"url('/snake.jpeg')",
-          backgroundSize:"60%",
-          backgroundPosition:"center",
-          minHeight:"100vh",
-          display:"flex",
-          flexDirection:"column",
-          alignItems:"center",
-          justifyContent:"center",
-          textAlign:"center",
-          fontFamily:"Arial, sans-serif",
-          position:"relative",
-          color:"white"
-        }}>
+        <div className="page background-fade">
 
           <div className="black-fade"></div>
 
-          <div style={{
-            position:"absolute",
-            top:0,
-            left:0,
-            width:"100%",
-            height:"100%",
-            backgroundColor:"rgba(0,0,0,0.55)"
-          }}/>
+          <div className="overlay"></div>
 
-          <div className="content-fade" style={{position:"relative",zIndex:2}}>
+          <div className="content content-fade">
 
             <h1 style={{fontSize:"48px",letterSpacing:"3px"}}>
               MEDICAL GRADE MUSIC
@@ -261,9 +224,7 @@ export default function App() {
                 viewBox="0 0 24 24"
                 fill="white"
               >
-
                 <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5z"/>
-
               </svg>
 
             </a>
