@@ -37,13 +37,6 @@ const handleEnter = () => {
 
   setTimeout(() => {
 
-    const duration = audio.duration;
-
-    if (!isNaN(duration) && duration > 0) {
-      const randomStart = Math.random() * duration;
-      audio.currentTime = randomStart;
-    }
-
     audio.play().catch(() => {});
 
     setEntered(true);
