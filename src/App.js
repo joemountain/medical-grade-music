@@ -1,38 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 
 export default function App() {
   const [authorized, setAuthorized] = useState(false);
   const [password, setPassword] = useState("");
   const audioRef = useRef(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password === "thebeatles2026") {   
-      setAuthorized(true);
-    }
-  };
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  if (password === "thebeatles2026") {
+    setAuthorized(true);
 
-  // Ambient audio fade-in on first click
-  useEffect(() => {
-    const playAudio = () => {
-      if (audioRef.current) {
-        audioRef.current.volume = 0;
-        audioRef.current.play();
-
-        let fade = setInterval(() => {
-          if (audioRef.current.volume < 0.2) {
-            audioRef.current.volume += 0.01;
-          } else {
-            clearInterval(fade);
-          }
-        }, 100);
-      }
-
-      window.removeEventListener("click", playAudio);
-    };
-
-    window.addEventListener("click", playAudio);
-  }, []);
+   
 
   // PASSWORD SCREEN
   if (!authorized) {
