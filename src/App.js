@@ -98,7 +98,6 @@ export default function App() {
           if (currentStep < steps) {
 
             const progress = currentStep / steps;
-
             const curve = Math.pow(progress, 2);
 
             audio.volume = targetVolume * (1 - curve);
@@ -220,7 +219,7 @@ export default function App() {
 
       ) : (
 
-        <div style={{
+        <div className="background-fade" style={{
           backgroundImage:"url('/snake.jpeg')",
           backgroundSize:"60%",
           backgroundPosition:"center",
@@ -235,6 +234,8 @@ export default function App() {
           color:"white"
         }}>
 
+          <div className="black-fade"></div>
+
           <div style={{
             position:"absolute",
             top:0,
@@ -244,7 +245,7 @@ export default function App() {
             backgroundColor:"rgba(0,0,0,0.55)"
           }}/>
 
-          <div style={{position:"relative",zIndex:2}}>
+          <div className="content-fade" style={{position:"relative",zIndex:2}}>
 
             <h1 style={{fontSize:"48px",letterSpacing:"3px"}}>
               MEDICAL GRADE MUSIC
