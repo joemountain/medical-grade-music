@@ -51,18 +51,54 @@ const handleEnter = () => {
 
   }
 
-  setTimeout(() => {
+setTimeout(() => {
 
-    const duration = audio.duration;
+  const duration = audio.duration;
 
-    if (!isNaN(duration) && duration > 0) {
-      const randomStart = Math.random() * duration;
-      audio.currentTime = randomStart;
+  if (!isNaN(duration) && duration > 0) {
+    const randomStart = Math.random() * duration;
+    audio.currentTime = randomStart;
+  }
+
+  audio.play().catch(() => {});
+
+  const targetVolume = 0.18;
+  const introFadeDuration = 6000;
+  const steps = 60;
+
+  const fadeInStepTime = introFadeDuration / steps;
+  const volumeStep = targetVolume / steps;
+
+  let currentStep = 0;
+
+  const fadeIn = setInterval(() => {
+
+    if (currentStep < steps) {
+
+      audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+
+      if (filterRef.current) {
+
+        const progress = currentStep / steps;
+
+        filterRef.current.frequency.value = Math.min(
+          20000,
+          400 * Math.pow(45, progress)
+        );
+
+      }
+
+      currentStep++;
+
+    } else {
+
+      clearInterval(fadeIn);
+
     }
 
-    audio.play().catch(() => {});
+  }, fadeInStepTime);
 
-  }, 800);
+}, 800);
 
 
   const targetVolume = 0.18;
