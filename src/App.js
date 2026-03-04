@@ -1,4 +1,4 @@
-ok cool, think I've got it - will this works? import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function App() {
 
@@ -11,7 +11,10 @@ const [entered, setEntered] = useState(false);
 
 const audioRef = useRef(null);
 
+
+
 const handleSubmit = (e) => {
+
   e.preventDefault();
 
   if (password === "nowindows13th!") {
@@ -20,7 +23,10 @@ const handleSubmit = (e) => {
     setAuthorized(true);
 
   }
+
 };
+
+
 
 const handleEnter = () => {
 
@@ -40,36 +46,37 @@ const handleEnter = () => {
 
     audio.play().catch(() => {});
 
-  const targetVolume = 0.18;
-  const introFadeDuration = 6000;
-  const steps = 60;
+    setEntered(true);
 
-  const fadeInStepTime = introFadeDuration / steps;
-  const volumeStep = targetVolume / steps;
+    const targetVolume = 0.18;
+    const introFadeDuration = 6000;
+    const steps = 60;
 
-  let currentStep = 0;
+    const fadeInStepTime = introFadeDuration / steps;
+    const volumeStep = targetVolume / steps;
 
-  const fadeIn = setInterval(() => {
+    let currentStep = 0;
 
-    if (currentStep < steps) {
+    const fadeIn = setInterval(() => {
 
-      audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+      if (currentStep < steps) {
 
-      currentStep++;
+        audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+        currentStep++;
 
-    } else {
+      } else {
 
-      clearInterval(fadeIn);
+        clearInterval(fadeIn);
 
-    }
+      }
 
-  }, fadeInStepTime);
+    }, fadeInStepTime);
 
-      }, 800); 
-
-  setEntered(true);
+  }, 800);
 
 };
+
+
 
 useEffect(() => {
 
@@ -140,6 +147,7 @@ useEffect(() => {
 
 
 
+
 return (
 
 <>
@@ -147,7 +155,8 @@ return (
 
 {!authorized ? (
 
-<div style={{
+<div
+style={{
 height:"100vh",
 background:"black",
 display:"flex",
@@ -155,7 +164,8 @@ alignItems:"center",
 justifyContent:"center",
 color:"white",
 fontFamily:"Arial, sans-serif"
-}}>
+}}
+>
 
 <form onSubmit={handleSubmit} style={{textAlign:"center"}}>
 
@@ -182,7 +192,8 @@ border:"1px solid white"
 
 ) : !entered ? (
 
-<div style={{
+<div
+style={{
 height:"100vh",
 background:"black",
 display:"flex",
@@ -190,7 +201,8 @@ alignItems:"center",
 justifyContent:"center",
 color:"white",
 fontFamily:"Arial, sans-serif"
-}}>
+}}
+>
 
 <button
 onClick={handleEnter}
