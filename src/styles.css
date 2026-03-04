@@ -3,6 +3,7 @@ body {
   background:black;
   color:white;
   font-family: Arial, sans-serif;
+  overflow:hidden;
 }
 
 /* center layout */
