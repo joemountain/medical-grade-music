@@ -5,12 +5,25 @@ export default function App() {
   const [password, setPassword] = useState("");
   const audioRef = useRef(null);
 
- const handleSubmit = (e) => {
-  e.preventDefault();
-  if (password === "thebeatles2026") {
-    setAuthorized(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === "thebeatles2026") {
+      setAuthorized(true);
 
-   
+      if (audioRef.current) {
+        audioRef.current.volume = 0;
+        audioRef.current.play().catch(() => {});
+
+        let fade = setInterval(() => {
+          if (audioRef.current.volume < 0.2) {
+            audioRef.current.volume += 0.01;
+          } else {
+            clearInterval(fade);
+          }
+        }, 100);
+      }
+    }
+  };
 
   // PASSWORD SCREEN
   if (!authorized) {
