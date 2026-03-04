@@ -17,7 +17,7 @@ const handleSubmit = (e) => {
 
    const targetVolume = 0.18;
 
-const fadeOutDuration = 4000;   // leaving tab
+const fadeOutDuration = 3500;   // leaving tab
 const fadeInDuration = 6000;    // returning to tab
 
 const steps = 60;
