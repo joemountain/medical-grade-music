@@ -31,7 +31,9 @@ const handleSubmit = (e) => {
   filterRef.current = filter;
 }
 
-audio.play().catch(() => {});
+setTimeout(() => {
+  audio.play().catch(() => {});
+}, 800);
 
    const targetVolume = 0.18;
 
