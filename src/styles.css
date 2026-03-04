@@ -65,7 +65,7 @@ body {
 
 .background-fade{
   transform:scale(1.05);
-  animation:backgroundScale 3s ease forwards;
+ animation:backgroundScale 3s cubic-bezier(.22,.61,.36,1) forwards;
 }
 
 @keyframes backgroundScale{
