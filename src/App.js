@@ -216,6 +216,7 @@ export default function App() {
           <div className="black-fade"></div>
 
           <div className="overlay"></div>
+          <div className="vignette"></div>
 
           <div className="content content-fade">
 
