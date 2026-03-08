@@ -78,37 +78,8 @@ padding-left:20px;
 padding-right:20px;
 text-align:center;
 position:relative;
-
 text-shadow:0 0 8px rgba(255,255,255,0.08);
 -webkit-font-smoothing:antialiased;
-}
-
-/* extremely subtle shimmer */
-
-.title::after{
-content:"";
-position:absolute;
-top:0;
-left:-200%;
-width:200%;
-height:100%;
-pointer-events:none;
-
-background:linear-gradient(
-120deg,
-transparent 0%,
-rgba(255,255,255,0.02) 48%,
-rgba(255,255,255,0.03) 50%,
-rgba(255,255,255,0.02) 52%,
-transparent 100%
-);
-
-animation:titleShimmer 40s linear infinite;
-}
-
-@keyframes titleShimmer{
-0%{transform:translateX(0)}
-100%{transform:translateX(300%)}
 }
 
 /* subtitle */
