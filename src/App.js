@@ -11,7 +11,6 @@ export default function App() {
 
   const audioRef = useRef(null);
   const fadeRef = useRef(null);
-  const audioStartedRef = useRef(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,14 +21,16 @@ export default function App() {
     }
   };
 
-  const startAudio = () => {
-
-    if (audioStartedRef.current) return;
+  const handleEnter = () => {
 
     const audio = audioRef.current;
     if (!audio) return;
 
-    audioStartedRef.current = true;
+    if (fadeRef.current) {
+      clearInterval(fadeRef.current);
+    }
+
+    setEntered(true);
 
     audio.volume = 0;
 
@@ -43,8 +44,6 @@ export default function App() {
       const fadeInStepTime = introFadeDuration / steps;
 
       let currentStep = 0;
-
-      if (fadeRef.current) clearInterval(fadeRef.current);
 
       fadeRef.current = setInterval(() => {
 
@@ -70,37 +69,6 @@ export default function App() {
     }, 1600);
 
   };
-
-  const handleEnter = () => {
-    setEntered(true);
-  };
-
-  useEffect(() => {
-
-    if (!entered) return;
-
-    const wakeAudio = () => {
-      startAudio();
-      removeListeners();
-    };
-
-    const removeListeners = () => {
-      window.removeEventListener("mousemove", wakeAudio);
-      window.removeEventListener("mousedown", wakeAudio);
-      window.removeEventListener("touchstart", wakeAudio);
-      window.removeEventListener("keydown", wakeAudio);
-      window.removeEventListener("scroll", wakeAudio);
-    };
-
-    window.addEventListener("mousemove", wakeAudio);
-    window.addEventListener("mousedown", wakeAudio);
-    window.addEventListener("touchstart", wakeAudio);
-    window.addEventListener("keydown", wakeAudio);
-    window.addEventListener("scroll", wakeAudio);
-
-    return removeListeners;
-
-  }, [entered]);
 
   useEffect(() => {
 
@@ -222,41 +190,40 @@ export default function App() {
 
         <div className="center-screen">
 
-          <button
-            className="enter-button"
-            onClick={handleEnter}
-            style={{
-              padding:"14px 28px",
-              background:"black",
-              color:"white",
-              border:"1px solid white",
-              letterSpacing:"2px",
-              cursor:"pointer"
-            }}
-          >
-            ENTER
-          </button>
+      <button
+  className="enter-button"
+  onClick={handleEnter}
+  style={{
+    padding:"14px 28px",
+    background:"black",
+    color:"white",
+    border:"1px solid white",
+    letterSpacing:"2px",
+    cursor:"pointer"
+  }}
+>
+  ENTER
+</button>
 
         </div>
 
       ) : (
 
-        <div
-          className="background-fade page drifting-bg"
-          style={{ backgroundImage: "url('/snake.jpeg')" }}
-        >
+      <div
+  className="background-fade page drifting-bg"
+  style={{ backgroundImage: "url('/snake.jpeg')" }}
+>
 
           <div className="black-fade"></div>
 
-          <div className="overlay"></div>
-
-          <div className="vignette"></div>
+        <div className="overlay"></div>
+        <div className="vignette"></div>
 
           <div className="content content-fade">
 
-            <h1 className="title">
-              MEDICAL GRADE MUSIC
-            </h1>
+           <h1 className="title">
+  MEDICAL GRADE MUSIC
+</h1>
 
             <p style={{fontSize:"20px",marginBottom:"30px"}}>
               No cure. Coming Soon.
