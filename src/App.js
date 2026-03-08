@@ -25,6 +25,9 @@ export default function App() {
 
     const audio = audioRef.current;
     if (!audio) return;
+    if (fadeRef.current) {
+  clearInterval(fadeRef.current);
+}
 
     setEntered(true);
 
