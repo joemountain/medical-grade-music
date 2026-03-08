@@ -1,212 +1,140 @@
-body {
-  margin:0;
-  background:black;
-  color:white;
-  font-family: Arial, sans-serif;
-  overflow:hidden;
+html, body {
+margin:0;
+padding:0;
+height:100%;
+overflow:hidden;
+background:black;
+font-family:Arial, sans-serif;
+color:white;
 }
-
-/* center layout */
 
 .center-screen{
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:black;
 }
-
-/* page background */
-
-.page{
-  background-size:60%;
-  background-position:center;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  position:relative;
-}
-
-/* dark overlay */
-
-.overlay{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.55);
-}
-
-/* content */
-
-.content{
-  position:relative;
-  z-index:2;
-}
-
-/* black fade */
-
-.black-fade{
-  position:fixed;
-  inset:0;
-  background:black;
-  z-index:9999;
-  animation:fadeBlack 2.5s ease forwards;
-  animation-delay:0.5s;
-}
-
-@keyframes fadeBlack{
-  to{
-    opacity:0;
-    visibility:hidden;
-  }
-}
-
-/* background zoom */
-
-.background-fade{
-  transform:scale(1.05);
- animation:backgroundScale 3s cubic-bezier(.22,.61,.36,1) forwards;
-}
-
-@keyframes backgroundScale{
-  to{
-    transform:scale(1);
-  }
-}
-
-/* text fade */
-
-.content-fade{
-  opacity:0;
-  transform:translateY(10px);
-  animation:contentFade 2s ease forwards;
-  animation-delay:2.5s;
-}
-
-@keyframes contentFade{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-/* cinematic vignette */
-
-.vignette{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(0,0,0,0) 40%,
-      rgba(0,0,0,.35) 100%
-    );
-  animation:vignetteBreath 12s ease-in-out infinite;
-}
-
-@keyframes vignetteBreath{
-  0%{
-    opacity:.85;
-  }
-  50%{
-    opacity:1;
-  }
-  100%{
-    opacity:.85;
-  }
-}
-/* breathing enter button */
 
 .enter-button{
-  animation:enterBreath 4.5s ease-in-out infinite;
+padding:14px 28px;
+background:black;
+color:white;
+border:1px solid white;
+letter-spacing:2px;
+cursor:pointer;
+animation: breathe 4s ease-in-out infinite;
 }
 
-@keyframes enterBreath{
-  0%{
-    opacity:.88;
-    box-shadow:0 0 0 rgba(255,255,255,0);
-  }
+@keyframes breathe{
+0%{opacity:.7}
+50%{opacity:1}
+100%{opacity:.7}
+}
 
-  50%{
-    opacity:1;
-    box-shadow:0 0 8px rgba(255,255,255,.25);
-  }
+.page{
+position:relative;
+height:100vh;
+width:100vw;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+background-size:60%;
+background-position:center;
+animation: fadeInPage 2s ease forwards;
+}
 
-  100%{
+@keyframes fadeInPage{
+0%{opacity:0}
+100%{opacity:1}
+}
 
-    /* cinematic title */
+.content{
+position:relative;
+z-index:2;
+animation: fadeText 2.5s ease forwards;
+}
+
+@keyframes fadeText{
+0%{opacity:0}
+100%{opacity:1}
+}
 
 .title{
-  font-size:48px;
-  letter-spacing:.28em;
-  font-weight:500;
-
-  text-shadow:
-    0 0 8px rgba(255,255,255,.08),
-    0 0 22px rgba(255,255,255,.04);
-
-  margin-bottom:18px;
+font-size:clamp(28px,6vw,48px);
+letter-spacing:3px;
+padding-left:20px;
+padding-right:20px;
+text-align:center;
+position:relative;
 }
-    opacity:.88;
-    box-shadow:0 0 0 rgba(255,255,255,0);
-  }
+
+.title::after{
+content:"";
+position:absolute;
+top:0;
+left:-150%;
+width:150%;
+height:100%;
+background:linear-gradient(
+120deg,
+transparent 0%,
+rgba(255,255,255,0.08) 45%,
+rgba(255,255,255,0.12) 50%,
+rgba(255,255,255,0.08) 55%,
+transparent 100%
+);
+animation:titleShimmer 18s linear infinite;
 }
-/* slow background drift */
+
+@keyframes titleShimmer{
+0%{transform:translateX(0)}
+100%{transform:translateX(250%)}
+}
+
+.content p{
+font-size:clamp(16px,2.5vw,20px);
+margin-bottom:30px;
+}
+
+.instagram{
+display:inline-block;
+margin-top:30px;
+}
+
+.overlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+}
+
+.vignette{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+box-shadow: inset 0 0 200px rgba(0,0,0,0.6);
+animation:vignettePulse 8s ease-in-out infinite;
+}
+
+@keyframes vignettePulse{
+0%{box-shadow: inset 0 0 200px rgba(0,0,0,0.6)}
+50%{box-shadow: inset 0 0 260px rgba(0,0,0,0.75)}
+100%{box-shadow: inset 0 0 200px rgba(0,0,0,0.6)}
+}
 
 .drifting-bg{
-  animation:backgroundDrift 90s ease-in-out infinite alternate;
+animation: drift 40s linear infinite;
 }
 
-@keyframes backgroundDrift{
-
-  0%{
-    background-position:center;
-  }
-
-  50%{
-    background-position:52% 48%;
-  }
-
-  100%{
-    /* subtle film title shimmer */
-
-.title {
-  position: relative;
-  display: inline-block;
-}
-
-.title::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 150%;
-  height: 100%;
-
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255,255,255,0.08) 45%,
-    rgba(255,255,255,0.18) 50%,
-    rgba(255,255,255,0.08) 55%,
-    transparent 100%
-  );
-
-  animation: titleShimmer 18s linear infinite;
-}
-
-@keyframes titleShimmer {
-
-  0% {
-    transform: translateX(0%);
-  }
-
-  100% {
-    transform: translateX(250%);
-  }
-
-}
-    background-position:48% 52%;
-  }
-
+@keyframes drift{
+0%{background-position:center}
+50%{background-position:52% 48%}
+100%{background-position:center}
 }
