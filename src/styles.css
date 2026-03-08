@@ -133,6 +133,20 @@ body {
   }
 
   100%{
+
+    /* cinematic title */
+
+.title{
+  font-size:48px;
+  letter-spacing:.28em;
+  font-weight:500;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,.08),
+    0 0 22px rgba(255,255,255,.04);
+
+  margin-bottom:18px;
+}
     opacity:.88;
     box-shadow:0 0 0 rgba(255,255,255,0);
   }
