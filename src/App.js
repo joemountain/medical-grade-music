@@ -190,19 +190,20 @@ export default function App() {
 
         <div className="center-screen">
 
-          <button
-            onClick={handleEnter}
-            style={{
-              padding:"14px 28px",
-              background:"black",
-              color:"white",
-              border:"1px solid white",
-              letterSpacing:"2px",
-              cursor:"pointer"
-            }}
-          >
-            ENTER
-          </button>
+      <button
+  className="enter-button"
+  onClick={handleEnter}
+  style={{
+    padding:"14px 28px",
+    background:"black",
+    color:"white",
+    border:"1px solid white",
+    letterSpacing:"2px",
+    cursor:"pointer"
+  }}
+>
+  ENTER
+</button>
 
         </div>
 
