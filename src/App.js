@@ -217,7 +217,6 @@ export default function App() {
 
         <div className="overlay"></div>
         <div className="vignette"></div>
-        <div className="grain"></div>
 
           <div className="content content-fade">
 
