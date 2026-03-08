@@ -78,6 +78,9 @@ padding-left:20px;
 padding-right:20px;
 text-align:center;
 position:relative;
+
+text-shadow:0 0 8px rgba(255,255,255,0.08);
+-webkit-font-smoothing:antialiased;
 }
 
 /* extremely subtle shimmer */
