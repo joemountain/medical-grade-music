@@ -221,9 +221,9 @@ export default function App() {
 
           <div className="content content-fade">
 
-            <h1 style={{fontSize:"48px",letterSpacing:"3px"}}>
-              MEDICAL GRADE MUSIC
-            </h1>
+           <h1 className="title">
+  MEDICAL GRADE MUSIC
+</h1>
 
             <p style={{fontSize:"20px",marginBottom:"30px"}}>
               No cure. Coming Soon.
