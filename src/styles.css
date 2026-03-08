@@ -154,7 +154,7 @@ body {
 /* slow background drift */
 
 .drifting-bg{
-  animation:backgroundDrift 40s ease-in-out infinite alternate;
+  animation:backgroundDrift 90s ease-in-out infinite alternate;
 }
 
 @keyframes backgroundDrift{
