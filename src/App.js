@@ -129,9 +129,13 @@ useEffect(() => {
   };
 
   document.addEventListener("visibilitychange", handleVisibility);
+  window.addEventListener("blur", handleVisibility);
+  window.addEventListener("pagehide", handleVisibility);
 
   return () => {
     document.removeEventListener("visibilitychange", handleVisibility);
+    window.removeEventListener("blur", handleVisibility);
+    window.removeEventListener("pagehide", handleVisibility);
   };
 
 }, []);
@@ -149,14 +153,6 @@ return (
 <button
 className="enter-button"
 onClick={handleEnter}
-style={{
-padding:"14px 28px",
-background:"black",
-color:"white",
-border:"1px solid white",
-letterSpacing:"2px",
-cursor:"pointer"
-}}
 >
 ENTER
 </button>
@@ -166,7 +162,7 @@ ENTER
 ) : (
 
 <div
-className="background-fade page drifting-bg"
+className="page drifting-bg"
 style={{ backgroundImage: "url('/snake.jpeg')" }}
 >
 
@@ -176,13 +172,13 @@ style={{ backgroundImage: "url('/snake.jpeg')" }}
 
 <div className="vignette"></div>
 
-<div className="content content-fade">
+<div className="content">
 
 <h1 className="title">
 MEDICAL GRADE MUSIC
 </h1>
 
-<p style={{fontSize:"20px",marginBottom:"30px"}}>
+<p>
 No cure. Coming Soon.
 </p>
 
@@ -190,7 +186,7 @@ No cure. Coming Soon.
 href="https://www.instagram.com/medical_grade_music/"
 target="_blank"
 rel="noopener noreferrer"
-style={{marginTop:"30px",display:"inline-block"}}
+className="instagram"
 >
 
 <svg
