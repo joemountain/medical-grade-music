@@ -44,7 +44,7 @@ export default function App() {
 
       let currentStep = 0;
 
-      const fadeIn = setInterval(() => {
+fadeRef.current = setInterval(() => {
 
         if (currentStep < steps) {
 
@@ -59,7 +59,7 @@ export default function App() {
 
         } else {
 
-          clearInterval(fadeIn);
+         clearInterval(fadeRef.current);
 
         }
 
@@ -92,7 +92,7 @@ if (document.hidden) {
 
   const startVolume = audio.volume;
 
-  const fadeOut = setInterval(() => {
+fadeRef.current = setInterval(() => {
 
     if (currentStep < steps) {
 
@@ -108,7 +108,7 @@ if (document.hidden) {
     } else {
 
       audio.volume = 0;
-      clearInterval(fadeOut);
+ clearInterval(fadeRef.current);
 
     }
 
