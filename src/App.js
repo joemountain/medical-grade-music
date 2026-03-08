@@ -10,6 +10,7 @@ export default function App() {
   const [entered, setEntered] = useState(false);
 
   const audioRef = useRef(null);
+  const fadeRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
