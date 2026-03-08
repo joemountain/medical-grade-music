@@ -89,3 +89,29 @@ body {
     transform:translateY(0);
   }
 }
+/* cinematic vignette */
+
+.vignette{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0,0,0,0) 40%,
+      rgba(0,0,0,.35) 100%
+    );
+  animation:vignetteBreath 12s ease-in-out infinite;
+}
+
+@keyframes vignetteBreath{
+  0%{
+    opacity:.85;
+  }
+  50%{
+    opacity:1;
+  }
+  100%{
+    opacity:.85;
+  }
+}
