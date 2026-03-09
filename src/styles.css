@@ -59,7 +59,7 @@ position:relative;
 
 color:white;
 
-background-image:url("/snake.jpeg");
+background-image:url("snake.jpeg");
 background-size:contain;
 background-position:center;
 background-repeat:no-repeat;
