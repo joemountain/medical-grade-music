@@ -48,19 +48,17 @@ animation:breathe 7s ease-in-out infinite;
 
 .page {
 
-min-height:100dvh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-position:relative;
-color:white;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+position: relative;
+color: white;
 
-background-position:center;
-background-repeat:no-repeat;
-
-/* key line that fixes the snake size */
-background-size:min(60vw,600px);
+background-size: contain;
+background-position: center;
+background-repeat: no-repeat;
 
 }
 
