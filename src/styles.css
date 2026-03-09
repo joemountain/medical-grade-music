@@ -48,25 +48,24 @@ animation:breathe 7s ease-in-out infinite;
 
 .page {
 
-min-height: 100vh;
-width: 100vw;
+height:100vh;
+width:100vw;
 
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-position: relative;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
 
-color: white;
+color:white;
 
-background-image: url("/snake.jpeg");
-background-size: contain;
-background-position: center;
-background-repeat: no-repeat;
-background-color: black;
+background-image:url("/snake.jpeg");
+background-size:contain;
+background-position:center;
+background-repeat:no-repeat;
+background-color:black;
 
 }
-
 
 /* DARK OVERLAY */
 
