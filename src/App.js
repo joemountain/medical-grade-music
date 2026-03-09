@@ -28,9 +28,7 @@ const fadeAudio = (targetVolume, duration) => {
       startVolume + (targetVolume - startVolume) * curved;
 
     if (progress < 1) {
-
       fadeRef.current = requestAnimationFrame(animate);
-
     }
 
   };
@@ -52,7 +50,6 @@ const handleEnter = () => {
   setTimeout(() => {
 
     audio.play().catch(() => {});
-
     fadeAudio(0.18, 6000);
 
   }, 1600);
@@ -63,6 +60,8 @@ const handleEnter = () => {
 useEffect(() => {
 
   const handleVisibility = () => {
+
+    if (!entered) return;
 
     const audio = audioRef.current;
     if (!audio) return;
@@ -81,6 +80,8 @@ useEffect(() => {
 
   const handlePageHide = () => {
 
+    if (!entered) return;
+
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -90,6 +91,8 @@ useEffect(() => {
   };
 
   const handlePageShow = () => {
+
+    if (!entered) return;
 
     const audio = audioRef.current;
     if (!audio) return;
@@ -116,7 +119,7 @@ useEffect(() => {
 
   };
 
-}, []);
+}, [entered]);
 
 
 return (
