@@ -59,24 +59,29 @@ const handleEnter = () => {
 
 useEffect(() => {
 
-  const handleVisibility = () => {
+const handleVisibility = () => {
 
-    if (!entered) return;
+  if (!entered) return;
 
-    const audio = audioRef.current;
-    if (!audio) return;
+  const audio = audioRef.current;
+  if (!audio) return;
 
-    if (document.hidden) {
+  if (document.hidden) {
 
-      fadeAudio(0, 3000);
+    fadeAudio(0, 2000);
 
-    } else {
+    setTimeout(() => {
+      audio.pause();
+    }, 2000);
 
-      fadeAudio(0.18, 6000);
+  } else {
 
-    }
+    audio.play().catch(()=>{});
+    fadeAudio(0.18, 6000);
 
-  };
+  }
+
+};
 
   const handlePageHide = () => {
 
