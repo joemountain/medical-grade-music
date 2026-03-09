@@ -7,6 +7,39 @@ const [entered, setEntered] = useState(false);
 const audioRef = useRef(null);
 const fadeRef = useRef(null);
 
+const fadeAudio = (targetVolume, duration) => {
+
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  if (fadeRef.current) cancelAnimationFrame(fadeRef.current);
+
+  const startVolume = audio.volume;
+  const startTime = performance.now();
+
+  const animate = (time) => {
+
+    const elapsed = time - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    const curved = progress * progress;
+
+    audio.volume =
+      startVolume + (targetVolume - startVolume) * curved;
+
+    if (progress < 1) {
+
+      fadeRef.current = requestAnimationFrame(animate);
+
+    }
+
+  };
+
+  fadeRef.current = requestAnimationFrame(animate);
+
+};
+
+
 const handleEnter = () => {
 
   const audio = audioRef.current;
@@ -20,34 +53,7 @@ const handleEnter = () => {
 
     audio.play().catch(() => {});
 
-    const targetVolume = 0.18;
-    const introFadeDuration = 6000;
-    const steps = 60;
-
-    const fadeInStepTime = introFadeDuration / steps;
-
-    let currentStep = 0;
-
-    fadeRef.current = setInterval(() => {
-
-      if (currentStep < steps) {
-
-        const progress = currentStep / steps;
-
-        audio.volume = Math.min(
-          targetVolume,
-          targetVolume * Math.pow(progress, 2)
-        );
-
-        currentStep++;
-
-      } else {
-
-        clearInterval(fadeRef.current);
-
-      }
-
-    }, fadeInStepTime);
+    fadeAudio(0.18, 6000);
 
   }, 1600);
 
@@ -61,134 +67,54 @@ useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (fadeRef.current) clearInterval(fadeRef.current);
-
-    const targetVolume = 0.18;
-
-    const fadeOutDuration = 3000;
-    const fadeInDuration = 6000;
-
-    const steps = 60;
-
-    const fadeOutStepTime = fadeOutDuration / steps;
-    const fadeInStepTime = fadeInDuration / steps;
-
-    let currentStep = 0;
-
     if (document.hidden) {
 
-      const startVolume = audio.volume;
-
-      fadeRef.current = setInterval(() => {
-
-        if (currentStep < steps) {
-
-          const progress = currentStep / steps;
-
-          audio.volume = Math.max(
-            startVolume * (1 - progress * progress),
-            0
-          );
-
-          currentStep++;
-
-        } else {
-
-          audio.volume = 0;
-          clearInterval(fadeRef.current);
-
-        }
-
-      }, fadeOutStepTime);
+      fadeAudio(0, 3000);
 
     } else {
 
-      fadeRef.current = setInterval(() => {
-
-        if (currentStep < steps) {
-
-          const progress = currentStep / steps;
-
-          audio.volume = Math.min(
-            targetVolume,
-            targetVolume * Math.pow(progress, 2)
-          );
-
-          currentStep++;
-
-        } else {
-
-          clearInterval(fadeRef.current);
-
-        }
-
-      }, fadeInStepTime);
+      fadeAudio(0.18, 6000);
 
     }
 
   };
 
   const handlePageHide = () => {
-  const audio = audioRef.current;
-  if (!audio) return;
 
-  audio.pause();
-  audio.volume = 0;
-};
+    const audio = audioRef.current;
+    if (!audio) return;
 
-const handlePageShow = () => {
-  const audio = audioRef.current;
-  if (!audio) return;
+    audio.pause();
+    audio.volume = 0;
 
-if (audio.paused) {
-  audio.play().catch(()=>{});
-}
-  
-  const targetVolume = 0.18;
-  const fadeInDuration = 6000;
-  const steps = 60;
+  };
 
-  const stepTime = fadeInDuration / steps;
+  const handlePageShow = () => {
 
-  let currentStep = 0;
+    const audio = audioRef.current;
+    if (!audio) return;
 
-  if (fadeRef.current) clearInterval(fadeRef.current);
-
-  fadeRef.current = setInterval(() => {
-
-    if (currentStep < steps) {
-
-      const progress = currentStep / steps;
-
-      audio.volume = Math.min(
-        targetVolume,
-        targetVolume * Math.pow(progress,2)
-      );
-
-      currentStep++;
-
-    } else {
-
-      clearInterval(fadeRef.current);
-
+    if (audio.paused) {
+      audio.play().catch(()=>{});
     }
 
-  }, stepTime);
-};
+    fadeAudio(0.18, 6000);
 
-document.addEventListener("visibilitychange", handleVisibility);
-window.addEventListener("blur", handleVisibility);
-window.addEventListener("pagehide", handlePageHide);
-window.addEventListener("pageshow", handlePageShow);
+  };
 
-return () => {
+  document.addEventListener("visibilitychange", handleVisibility);
+  window.addEventListener("blur", handleVisibility);
+  window.addEventListener("pagehide", handlePageHide);
+  window.addEventListener("pageshow", handlePageShow);
 
-  document.removeEventListener("visibilitychange", handleVisibility);
-  window.removeEventListener("blur", handleVisibility);
-  window.removeEventListener("pagehide", handlePageHide);
-  window.removeEventListener("pageshow", handlePageShow);
+  return () => {
 
-};
+    document.removeEventListener("visibilitychange", handleVisibility);
+    window.removeEventListener("blur", handleVisibility);
+    window.removeEventListener("pagehide", handlePageHide);
+    window.removeEventListener("pageshow", handlePageShow);
+
+  };
 
 }, []);
 
