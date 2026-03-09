@@ -144,7 +144,10 @@ ENTER
 
 <div className="page">
 
-<div className="snake-fill"></div>
+<div
+className="snake-fill"
+style={{ backgroundImage: "url('/snake.jpg')" }}
+></div>
 
 <img
 className="snake-main"
