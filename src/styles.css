@@ -133,6 +133,8 @@ position:relative;
 z-index:3;
 animation:fadeIn 2.5s ease forwards;
 
+  transform:translateY(-3vh);
+
 }
 
 @keyframes fadeIn {
