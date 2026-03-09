@@ -145,7 +145,10 @@ ENTER
 <div
   className="page"
   style={{
-    backgroundImage: `url("/snake.jpeg")`
+    backgroundImage: `url("/snake.jpeg")`,
+    backgroundSize: "auto 100vh",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat"
   }}
 >
 
