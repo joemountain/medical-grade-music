@@ -59,7 +59,6 @@ position:relative;
 
 color:white;
 
-background-image: url("%PUBLIC_URL%/snake.jpeg");
 background-position:center;
 background-repeat:no-repeat;
 background-size:min(100vw,100vh);
