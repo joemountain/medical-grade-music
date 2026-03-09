@@ -143,7 +143,7 @@ ENTER
 ) : (
 
 <div
-className="page drifting-bg"
+className="page"
 style={{ backgroundImage: "url('/snake.jpeg')" }}
 >
 
