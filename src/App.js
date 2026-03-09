@@ -148,7 +148,7 @@ ENTER
 
 <img
 className="snake-main"
-src="/snake.jpeg"
+src="/snake.jpg"
 alt=""
 />
 
