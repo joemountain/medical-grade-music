@@ -146,7 +146,7 @@ ENTER
   className="page"
   style={{
     backgroundImage: `url("/snake.jpeg")`,
-    backgroundSize: "auto 100vh",
+    backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat"
   }}
