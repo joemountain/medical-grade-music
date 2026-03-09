@@ -47,11 +47,10 @@ const handleEnter = () => {
 
   audio.volume = 0;
 
+  audio.play().catch(()=>{});   // Safari requires this immediately
+
   setTimeout(() => {
-
-    audio.play().catch(() => {});
-    fadeAudio(0.18, 6000);
-
+    fadeAudio(0.18, 6000);      // fade delayed instead
   }, 1600);
 
 };
