@@ -7,6 +7,7 @@ const [entered, setEntered] = useState(false);
 const audioRef = useRef(null);
 const fadeRef = useRef(null);
 
+
 const fadeAudio = (targetVolume, duration) => {
 
   const audio = audioRef.current;
@@ -22,7 +23,7 @@ const fadeAudio = (targetVolume, duration) => {
     const elapsed = time - startTime;
     const progress = Math.min(elapsed / duration, 1);
 
-    const curved = progress * progress;
+    const curved = Math.pow(progress, 2.5);
 
     audio.volume =
       startVolume + (targetVolume - startVolume) * curved;
@@ -47,10 +48,12 @@ const handleEnter = () => {
 
   audio.volume = 0;
 
-  audio.play().catch(()=>{});   // Safari requires this immediately
+  audio.play().catch(()=>{});
 
   setTimeout(() => {
-    fadeAudio(0.18, 6000);      // fade delayed instead
+
+    fadeAudio(0.18, 6000);
+
   }, 1600);
 
 };
@@ -65,7 +68,11 @@ useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    fadeAudio(0, 3000);
+    fadeAudio(0, 2000);
+
+    setTimeout(() => {
+      audio.pause();
+    }, 2000);
 
   };
 
@@ -76,29 +83,37 @@ useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
+    audio.play().catch(()=>{});
+
     fadeAudio(0.18, 6000);
 
   };
 
   const visibilityHandler = () => {
+
     if (document.hidden) {
       handleHide();
     } else {
       handleShow();
     }
+
   };
 
   document.addEventListener("visibilitychange", visibilityHandler);
+
   window.addEventListener("blur", handleHide);
   window.addEventListener("focus", handleShow);
+
   window.addEventListener("pagehide", handleHide);
   window.addEventListener("pageshow", handleShow);
 
   return () => {
 
     document.removeEventListener("visibilitychange", visibilityHandler);
+
     window.removeEventListener("blur", handleHide);
     window.removeEventListener("focus", handleShow);
+
     window.removeEventListener("pagehide", handleHide);
     window.removeEventListener("pageshow", handleShow);
 
