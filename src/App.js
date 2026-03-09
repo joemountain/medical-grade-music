@@ -83,44 +83,50 @@ const handleVisibility = () => {
 
 };
 
-  const handlePageHide = () => {
+useEffect(() => {
+
+  const handleHide = () => {
 
     if (!entered) return;
 
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.pause();
-    audio.volume = 0;
+    fadeAudio(0, 3000);
 
   };
 
-  const handlePageShow = () => {
+  const handleShow = () => {
 
     if (!entered) return;
 
     const audio = audioRef.current;
     if (!audio) return;
-
-    if (audio.paused) {
-      audio.play().catch(()=>{});
-    }
 
     fadeAudio(0.18, 6000);
 
   };
 
-  document.addEventListener("visibilitychange", handleVisibility);
-  window.addEventListener("blur", handleVisibility);
-  window.addEventListener("pagehide", handlePageHide);
-  window.addEventListener("pageshow", handlePageShow);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      handleHide();
+    } else {
+      handleShow();
+    }
+  });
+
+  window.addEventListener("blur", handleHide);
+  window.addEventListener("focus", handleShow);
+  window.addEventListener("pagehide", handleHide);
+  window.addEventListener("pageshow", handleShow);
 
   return () => {
 
-    document.removeEventListener("visibilitychange", handleVisibility);
-    window.removeEventListener("blur", handleVisibility);
-    window.removeEventListener("pagehide", handlePageHide);
-    window.removeEventListener("pageshow", handlePageShow);
+    document.removeEventListener("visibilitychange", handleHide);
+    window.removeEventListener("blur", handleHide);
+    window.removeEventListener("focus", handleShow);
+    window.removeEventListener("pagehide", handleHide);
+    window.removeEventListener("pageshow", handleShow);
 
   };
 
