@@ -143,8 +143,10 @@ ENTER
 ) : (
 
 <div
-className="page"
-style={{ backgroundImage: "url('/snake.jpeg')" }}
+  className="page"
+  style={{
+    backgroundImage: `url("/snake.jpeg")`
+  }}
 >
 
 <div className="black-fade"></div>
