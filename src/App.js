@@ -150,7 +150,6 @@ ENTER
     alt=""
   />
 
-<div className="black-fade"></div>
 
 <div className="overlay"></div>
 
