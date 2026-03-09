@@ -128,15 +128,65 @@ useEffect(() => {
 
   };
 
-  document.addEventListener("visibilitychange", handleVisibility);
-  window.addEventListener("blur", handleVisibility);
-  window.addEventListener("pagehide", handleVisibility);
+  const handlePageHide = () => {
+  const audio = audioRef.current;
+  if (!audio) return;
 
-  return () => {
-    document.removeEventListener("visibilitychange", handleVisibility);
-    window.removeEventListener("blur", handleVisibility);
-    window.removeEventListener("pagehide", handleVisibility);
-  };
+  audio.pause();
+  audio.volume = 0;
+};
+
+const handlePageShow = () => {
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  audio.play().catch(()=>{});
+
+  const targetVolume = 0.18;
+  const fadeInDuration = 6000;
+  const steps = 60;
+
+  const stepTime = fadeInDuration / steps;
+
+  let currentStep = 0;
+
+  if (fadeRef.current) clearInterval(fadeRef.current);
+
+  fadeRef.current = setInterval(() => {
+
+    if (currentStep < steps) {
+
+      const progress = currentStep / steps;
+
+      audio.volume = Math.min(
+        targetVolume,
+        targetVolume * Math.pow(progress,2)
+      );
+
+      currentStep++;
+
+    } else {
+
+      clearInterval(fadeRef.current);
+
+    }
+
+  }, stepTime);
+};
+
+document.addEventListener("visibilitychange", handleVisibility);
+window.addEventListener("blur", handleVisibility);
+window.addEventListener("pagehide", handlePageHide);
+window.addEventListener("pageshow", handlePageShow);
+
+return () => {
+
+  document.removeEventListener("visibilitychange", handleVisibility);
+  window.removeEventListener("blur", handleVisibility);
+  window.removeEventListener("pagehide", handlePageHide);
+  window.removeEventListener("pageshow", handlePageShow);
+
+};
 
 }, []);
 
