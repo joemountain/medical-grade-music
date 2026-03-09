@@ -142,3 +142,18 @@ opacity:.9;
 opacity:1;
 
 }
+
+.snake-bg {
+
+position:absolute;
+top:50%;
+left:50%;
+
+transform:translate(-50%, -50%);
+
+height:100vh;
+width:auto;
+
+pointer-events:none;
+
+}
