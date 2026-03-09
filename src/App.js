@@ -144,12 +144,13 @@ ENTER
 
 <div className="page">
 
-  <img
-    className="snake-bg"
-    src="/snake.jpeg"
-    alt=""
-  />
+<div className="snake-fill"></div>
 
+<img
+className="snake-main"
+src="/snake.jpeg"
+alt=""
+/>
 
 <div className="overlay"></div>
 
