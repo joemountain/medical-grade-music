@@ -7,7 +7,6 @@ font-family:Arial, Helvetica, sans-serif;
 
 }
 
-
 /* ENTER SCREEN */
 
 .center-screen {
@@ -19,7 +18,6 @@ justify-content:center;
 background:black;
 
 }
-
 
 .enter-button {
 
@@ -43,7 +41,6 @@ animation:breathe 7s ease-in-out infinite;
 
 }
 
-
 /* MAIN PAGE */
 
 .page {
@@ -51,17 +48,51 @@ animation:breathe 7s ease-in-out infinite;
 height:100vh;
 width:100vw;
 
+position:relative;
 display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
 
-position:relative;
+overflow:hidden;
 color:white;
 
-background:black;
+}
 
-overflow:hidden;
+/* FULLSCREEN BACKGROUND FILL */
+
+.snake-fill {
+
+position:absolute;
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background-image:url("/snake.jpeg");
+background-size:cover;
+background-position:center;
+
+filter:blur(40px) brightness(.6);
+transform:scale(1.2);
+
+}
+
+/* MAIN SNAKE */
+
+.snake-main {
+
+position:absolute;
+top:50%;
+left:50%;
+
+transform:translate(-50%, -50%);
+
+height:100vh;
+width:auto;
+
+pointer-events:none;
 
 }
 
@@ -74,10 +105,9 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.55);
+background:rgba(0,0,0,.45);
 
 }
-
 
 /* VIGNETTE */
 
@@ -96,13 +126,12 @@ rgba(0,0,0,.45) 100%);
 
 }
 
-
 /* CONTENT */
 
 .content {
 
 position:relative;
-z-index:2;
+z-index:3;
 animation:fadeIn 2.5s ease forwards;
 
 }
@@ -114,16 +143,14 @@ to{opacity:1}
 
 }
 
-
 /* TITLE */
 
 .title {
 
-font-size: clamp(28px, 6vw, 48px);
-letter-spacing: 3px;
+font-size:clamp(28px,6vw,48px);
+letter-spacing:3px;
 
 }
-
 
 /* INSTAGRAM */
 
@@ -138,20 +165,5 @@ opacity:.9;
 .instagram:hover {
 
 opacity:1;
-
-}
-
-.snake-bg {
-
-position:absolute;
-top:50%;
-left:50%;
-
-transform:translate(-50%, -50%);
-
-height:100dvh;
-width:auto;
-
-pointer-events:none;
 
 }
