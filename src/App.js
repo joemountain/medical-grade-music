@@ -142,15 +142,13 @@ ENTER
 
 ) : (
 
-<div
-  className="page"
-  style={{
-    backgroundImage: `url("/snake.jpeg")`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat"
-  }}
->
+<div className="page">
+
+  <img
+    className="snake-bg"
+    src="/snake.jpeg"
+    alt=""
+  />
 
 <div className="black-fade"></div>
 
