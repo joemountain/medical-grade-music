@@ -73,7 +73,7 @@ height:100%;
 background-size:cover;
 background-position:center;
 
-filter:blur(40px) brightness(.6);
+filter:blur(60px) brightness(.55);
 transform:scale(1.2);
 
 }
@@ -88,7 +88,7 @@ left:50%;
 
 transform:translate(-50%, -50%);
 
-height:100vh;
+height:105vh;
 width:auto;
 
 pointer-events:none;
