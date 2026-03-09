@@ -140,8 +140,10 @@ const handlePageShow = () => {
   const audio = audioRef.current;
   if (!audio) return;
 
+if (audio.paused) {
   audio.play().catch(()=>{});
-
+}
+  
   const targetVolume = 0.18;
   const fadeInDuration = 6000;
   const steps = 60;
