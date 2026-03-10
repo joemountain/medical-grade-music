@@ -17,6 +17,8 @@ align-items:center;
 justify-content:center;
 background:black;
 
+animation:fadeIn 2.5s ease forwards;
+
 }
 
 .enter-button {
