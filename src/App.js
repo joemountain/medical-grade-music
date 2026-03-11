@@ -23,7 +23,7 @@ const fadeAudio = (targetVolume, duration) => {
     const elapsed = time - startTime;
     const progress = Math.min(elapsed / duration, 1);
 
-    const curved = Math.pow(progress, 2.5);
+    const curved = Math.pow(progress, 3);
 
     audio.volume =
       startVolume + (targetVolume - startVolume) * curved;
@@ -70,24 +70,33 @@ useEffect(() => {
 
     fadeAudio(0, 2000);
 
-    setTimeout(() => {
-      audio.pause();
-    }, 2000);
+setTimeout(() => {
+
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  if (audio.volume <= 0.01) {
+    audio.pause();
+  }
+
+}, 2100);
 
   };
 
-  const handleShow = () => {
+const handleShow = () => {
 
-    if (!entered) return;
+  if (!entered) return;
 
-    const audio = audioRef.current;
-    if (!audio) return;
+  const audio = audioRef.current;
+  if (!audio) return;
 
-    audio.play().catch(()=>{});
+  audio.volume = Math.min(audio.volume, 0.01);
 
-    fadeAudio(0.18, 6000);
+  audio.play().catch(()=>{});
 
-  };
+  fadeAudio(0.18, 6000);
+
+};
 
   const visibilityHandler = () => {
 
