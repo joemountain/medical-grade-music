@@ -23,7 +23,7 @@ const fadeAudio = (targetVolume, duration) => {
     const elapsed = time - startTime;
     const progress = Math.min(elapsed / duration, 1);
 
-    const curved = Math.pow(progress, 3);
+    const curved = Math.pow(progress, 2.5);
 
     audio.volume =
       startVolume + (targetVolume - startVolume) * curved;
