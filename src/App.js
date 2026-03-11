@@ -61,42 +61,38 @@ const handleEnter = () => {
 
 useEffect(() => {
 
-  const handleHide = () => {
-
-    if (!entered) return;
-
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    fadeAudio(0, 2000);
-
-setTimeout(() => {
-
-  const audio = audioRef.current;
-  if (!audio) return;
-
-  if (audio.volume <= 0.01) {
-    audio.pause();
-  }
-
-}, 2100);
-
-  };
-
-const handleShow = () => {
-
   if (!entered) return;
 
   const audio = audioRef.current;
   if (!audio) return;
 
-  audio.volume = Math.min(audio.volume, 0.01);
+  let isHidden = false;
 
-  audio.play().catch(()=>{});
+  const handleHide = () => {
 
-  fadeAudio(0.18, 6000);
+    if (isHidden) return;
+    isHidden = true;
 
-};
+    fadeAudio(0, 2000);
+
+    setTimeout(() => {
+      audio.pause();
+    }, 2100);
+
+  };
+
+  const handleShow = () => {
+
+    if (!isHidden) return;
+    isHidden = false;
+
+    audio.volume = 0;
+
+    audio.play().catch(()=>{});
+
+    fadeAudio(0.18, 6000);
+
+  };
 
   const visibilityHandler = () => {
 
@@ -110,19 +106,13 @@ const handleShow = () => {
 
   document.addEventListener("visibilitychange", visibilityHandler);
 
-  window.addEventListener("blur", handleHide);
-  window.addEventListener("focus", handleShow);
-
+  // Safari + mobile backup
   window.addEventListener("pagehide", handleHide);
   window.addEventListener("pageshow", handleShow);
 
   return () => {
 
     document.removeEventListener("visibilitychange", visibilityHandler);
-
-    window.removeEventListener("blur", handleHide);
-    window.removeEventListener("focus", handleShow);
-
     window.removeEventListener("pagehide", handleHide);
     window.removeEventListener("pageshow", handleShow);
 
