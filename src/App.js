@@ -73,7 +73,7 @@ useEffect(() => {
     if (isHidden) return;
     isHidden = true;
 
-    fadeAudio(0, 2000);
+    fadeAudio(0, 800);
 
     setTimeout(() => {
       audio.pause();
@@ -109,12 +109,15 @@ useEffect(() => {
   // Safari + mobile backup
   window.addEventListener("pagehide", handleHide);
   window.addEventListener("pageshow", handleShow);
+  window.addEventListener("focus", handleShow);
 
   return () => {
 
     document.removeEventListener("visibilitychange", visibilityHandler);
     window.removeEventListener("pagehide", handleHide);
     window.removeEventListener("pageshow", handleShow);
+    window.addEventListener("focus", handleShow);
+    
 
   };
 
