@@ -56,11 +56,11 @@ if (!soundOn) {
   
 } else {
 
-  fadeAudio(0, 6000);
+  fadeAudio(0, 4000);
 
   setTimeout(()=>{
-    audio.pause();
-  },6000);
+  audio.pause();
+},4200);
 
   setSoundOn(false);
 
