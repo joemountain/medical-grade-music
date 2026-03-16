@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 export default function App() {
 
 const [entered, setEntered] = useState(false);
+const [soundOn, setSoundOn] = useState(false);
 
 const audioRef = useRef(null);
 const fadeRef = useRef(null);
@@ -23,7 +24,7 @@ const fadeAudio = (targetVolume, duration) => {
     const elapsed = time - startTime;
     const progress = Math.min(elapsed / duration, 1);
 
-    const curved = Math.pow(progress, 2.5);
+    const curved = Math.pow(progress, 3);
 
     audio.volume =
       startVolume + (targetVolume - startVolume) * curved;
@@ -40,57 +41,58 @@ const fadeAudio = (targetVolume, duration) => {
 
 
 const handleEnter = () => {
-
-  const audio = audioRef.current;
-  if (!audio) return;
-
   setEntered(true);
-
-  audio.volume = 0;
-
-  audio.play().catch(()=>{});
-
-  setTimeout(() => {
-
-    fadeAudio(0.18, 6000);
-
-  }, 1600);
-
 };
 
 
-useEffect(() => {
-
-  if (!entered) return;
+const toggleSound = () => {
 
   const audio = audioRef.current;
   if (!audio) return;
 
-  let isHidden = false;
-
-  const handleHide = () => {
-
-    if (isHidden) return;
-    isHidden = true;
-
-    fadeAudio(0, 800);
-
-    setTimeout(() => {
-      audio.pause();
-    }, 2100);
-
-  };
-
-  const handleShow = () => {
-
-    if (!isHidden) return;
-    isHidden = false;
+  if (!soundOn) {
 
     audio.volume = 0;
 
     audio.play().catch(()=>{});
 
     fadeAudio(0.18, 6000);
+
+    setSoundOn(true);
+
+  } else {
+
+    fadeAudio(0, 2000);
+
+    setTimeout(()=> {
+      audio.pause();
+    },2000);
+
+    setSoundOn(false);
+
+  }
+
+};
+
+
+useEffect(() => {
+
+  const audio = audioRef.current;
+  if (!audio) return;
+
+  const handleHide = () => {
+
+    if (!soundOn) return;
+
+    fadeAudio(0, 1000);
+
+  };
+
+  const handleShow = () => {
+
+    if (!soundOn) return;
+
+    fadeAudio(0.18, 3000);
 
   };
 
@@ -106,22 +108,18 @@ useEffect(() => {
 
   document.addEventListener("visibilitychange", visibilityHandler);
 
-  // Safari + mobile backup
   window.addEventListener("pagehide", handleHide);
   window.addEventListener("pageshow", handleShow);
-  window.addEventListener("focus", handleShow);
 
   return () => {
 
     document.removeEventListener("visibilitychange", visibilityHandler);
     window.removeEventListener("pagehide", handleHide);
     window.removeEventListener("pageshow", handleShow);
-    window.addEventListener("focus", handleShow);
-    
 
   };
 
-}, [entered]);
+}, [soundOn]);
 
 
 return (
@@ -158,7 +156,6 @@ alt=""
 />
 
 <div className="overlay"></div>
-
 <div className="vignette"></div>
 
 <div className="content">
@@ -170,6 +167,15 @@ MEDICAL GRADE MUSIC
 <p>
 No cure. Coming Soon.
 </p>
+
+
+<button
+className="sound-toggle"
+onClick={toggleSound}
+>
+{soundOn ? "SOUND OFF" : "SOUND ON"}
+</button>
+
 
 <a
 href="https://www.instagram.com/medical_grade_music/"
