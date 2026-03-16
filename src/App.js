@@ -54,17 +54,17 @@ if (!soundOn) {
 
   fadeAudio(0.18, 6000);
   
-  } else {
+} else {
 
-    fadeAudio(0, 2000);
+  fadeAudio(0, 6000);
 
-    setTimeout(()=>{
-      audio.pause();
-    },2000);
+  setTimeout(()=>{
+    audio.pause();
+  },6000);
 
-    setSoundOn(false);
+  setSoundOn(false);
 
-  }
+}
 
 };
 
