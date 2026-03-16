@@ -183,3 +183,9 @@ transition:opacity .25s ease;
 opacity:1;
 
 }
+
+button:focus,
+a:focus {
+outline: none;
+}
+
