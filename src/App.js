@@ -224,7 +224,6 @@ fill="white"
 
 </div>
 
-</div>
 
 )}
 
