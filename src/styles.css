@@ -207,3 +207,11 @@ margin-top:6px;
 .play-button:hover svg{
 filter:drop-shadow(0 0 6px rgba(255,255,255,.35));
 }
+
+.audio-controls{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:12px;
+margin-top:18px;
+}
