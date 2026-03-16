@@ -44,16 +44,16 @@ const toggleSound = () => {
   const audio = audioRef.current;
   if (!audio) return;
 
-  if (!soundOn) {
+if (!soundOn) {
 
-    audio.volume = 0;
+  audio.volume = 0.001;
 
-    audio.play().catch(()=>{});
+  audio.play();
 
-    fadeAudio(0.18, 6000);
+  setSoundOn(true);
 
-    setSoundOn(true);
-
+  fadeAudio(0.18, 6000);
+  
   } else {
 
     fadeAudio(0, 2000);
@@ -116,7 +116,7 @@ useEffect(() => {
 return (
 
 <>
-<audio ref={audioRef} src="/ambient.mp3" loop />
+<audio ref={audioRef} src="/ambient.mp3" loop preload="auto" />
 
 <div className="page">
 
