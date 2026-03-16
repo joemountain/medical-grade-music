@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 
 export default function App() {
 
-const [entered, setEntered] = useState(false);
 const [soundOn, setSoundOn] = useState(false);
 
 const audioRef = useRef(null);
@@ -40,11 +39,6 @@ const fadeAudio = (targetVolume, duration) => {
 };
 
 
-const handleEnter = () => {
-  setEntered(true);
-};
-
-
 const toggleSound = () => {
 
   const audio = audioRef.current;
@@ -53,7 +47,9 @@ const toggleSound = () => {
   if (!soundOn) {
 
     audio.volume = 0;
+
     audio.play().catch(()=>{});
+
     fadeAudio(0.18, 6000);
 
     setSoundOn(true);
@@ -74,9 +70,6 @@ const toggleSound = () => {
 
 
 useEffect(() => {
-
-  const audio = audioRef.current;
-  if (!audio) return;
 
   const handleHide = () => {
 
@@ -124,21 +117,6 @@ return (
 
 <>
 <audio ref={audioRef} src="/ambient.mp3" loop />
-
-{!entered ? (
-
-<div className="center-screen">
-
-<button
-className="enter-button"
-onClick={handleEnter}
->
-ENTER
-</button>
-
-</div>
-
-) : (
 
 <div className="page">
 
@@ -226,8 +204,6 @@ fill="white"
 </div>
 
 </div>
-
-)}
 
 </>
 
