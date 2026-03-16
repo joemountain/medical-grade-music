@@ -170,10 +170,35 @@ No cure. Coming Soon.
 
 
 <button
-className="sound-toggle"
+className="play-button"
 onClick={toggleSound}
 >
-{soundOn ? "SOUND OFF" : "SOUND ON"}
+
+<svg
+xmlns="http://www.w3.org/2000/svg"
+width="44"
+height="44"
+viewBox="0 0 24 24"
+fill="none"
+stroke="white"
+strokeWidth="1.5"
+strokeLinecap="round"
+strokeLinejoin="round"
+>
+
+<circle cx="12" cy="12" r="10"></circle>
+
+{!soundOn ? (
+<polygon points="10,8 16,12 10,16"></polygon>
+) : (
+<>
+<line x1="10" y1="8" x2="10" y2="16"></line>
+<line x1="14" y1="8" x2="14" y2="16"></line>
+</>
+)}
+
+</svg>
+
 </button>
 
 
