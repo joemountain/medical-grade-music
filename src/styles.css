@@ -12,6 +12,9 @@ overflow:hidden;
 
 position:relative;
 
+height:100vh;
+width:100vw;
+
 animation:pageFade 3s ease forwards;
 
 }
