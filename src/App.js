@@ -53,9 +53,7 @@ const toggleSound = () => {
   if (!soundOn) {
 
     audio.volume = 0;
-
     audio.play().catch(()=>{});
-
     fadeAudio(0.18, 6000);
 
     setSoundOn(true);
@@ -64,7 +62,7 @@ const toggleSound = () => {
 
     fadeAudio(0, 2000);
 
-    setTimeout(()=> {
+    setTimeout(()=>{
       audio.pause();
     },2000);
 
@@ -168,7 +166,8 @@ MEDICAL GRADE MUSIC
 No cure. Coming Soon.
 </p>
 
-<div className="audio-controls">  
+
+<div className="audio-controls">
 
 <button
 className="play-button"
@@ -212,8 +211,8 @@ className="instagram"
 
 <svg
 xmlns="http://www.w3.org/2000/svg"
-width="32"
-height="32"
+width="44"
+height="44"
 viewBox="0 0 24 24"
 fill="white"
 >
@@ -224,6 +223,9 @@ fill="white"
 
 </div>
 
+</div>
+
+</div>
 
 )}
 
