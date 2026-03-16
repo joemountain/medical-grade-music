@@ -161,7 +161,6 @@ transition:opacity .25s ease, transform .25s ease;
 .play-button:hover{
 
 opacity:1;
-transform:scale(1.05);
 
 }
 
