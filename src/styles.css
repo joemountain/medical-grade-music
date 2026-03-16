@@ -48,12 +48,10 @@ background-position:center;
 
 filter:blur(50px) brightness(.6);
 transform:scale(1.25);
-}
 
 z-index:0;
 
 }
-
 
 .snake-main{
 
