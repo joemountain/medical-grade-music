@@ -46,8 +46,9 @@ height:100vh;
 background-size:cover;
 background-position:center;
 
-filter:blur(40px) brightness(.6);
-transform:scale(1.2);
+filter:blur(50px) brightness(.6);
+transform:scale(1.25);
+}
 
 z-index:0;
 
