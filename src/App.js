@@ -168,6 +168,7 @@ MEDICAL GRADE MUSIC
 No cure. Coming Soon.
 </p>
 
+<div className="audio-controls">  
 
 <button
 className="play-button"
