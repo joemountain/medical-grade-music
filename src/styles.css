@@ -60,16 +60,14 @@ position:fixed;
 top:50%;
 left:50%;
 
-transform:translate(-50%,-50%) scale(1.01);
+transform:translate(-50%,-50%);
 
-height:103vh;
-height:103dvh;
+height:100svh;
 width:auto;
 
 z-index:1;
 
 }
-
 
 .overlay{
 
