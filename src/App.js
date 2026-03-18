@@ -8,12 +8,18 @@ export default function App() {
   const audioContextRef = useRef(null);
   const gainNodeRef = useRef(null);
 
+  // 🔑 Safely reset gain before any new fade
+  const resetGain = (context, gainNode) => {
+    gainNode.gain.cancelScheduledValues(context.currentTime);
+    gainNode.gain.setValueAtTime(gainNode.gain.value, context.currentTime);
+  };
+
   const toggleSound = () => {
 
     const audio = audioRef.current;
     if (!audio) return;
 
-    // FIRST TIME SETUP (only runs once)
+    // 🔧 Initialise audio context once
     if (!audioContextRef.current) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       const context = new AudioContext();
@@ -31,14 +37,16 @@ export default function App() {
     const context = audioContextRef.current;
     const gainNode = gainNodeRef.current;
 
-    if (!soundOn) {
+    context.resume();
 
-      context.resume();
+    // 🔑 Always reset before any new action
+    resetGain(context, gainNode);
+
+    if (!soundOn) {
 
       audio.play().catch(() => {});
 
-      // Smooth fade in (6 seconds)
-      gainNode.gain.cancelScheduledValues(context.currentTime);
+      // 🎧 Fade in (6 seconds)
       gainNode.gain.setValueAtTime(0, context.currentTime);
       gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 6);
 
@@ -46,8 +54,7 @@ export default function App() {
 
     } else {
 
-      // Smooth fade out (4 seconds)
-      gainNode.gain.cancelScheduledValues(context.currentTime);
+      // 🎧 Fade out (4 seconds)
       gainNode.gain.setValueAtTime(gainNode.gain.value, context.currentTime);
       gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 4);
 
@@ -72,8 +79,9 @@ export default function App() {
 
       if (!context || !gainNode) return;
 
-      gainNode.gain.cancelScheduledValues(context.currentTime);
-      gainNode.gain.setValueAtTime(gainNode.gain.value, context.currentTime);
+      resetGain(context, gainNode);
+
+      // Fade out quickly when tab hidden
       gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 1);
 
     };
@@ -87,7 +95,9 @@ export default function App() {
 
       if (!context || !gainNode) return;
 
-      gainNode.gain.cancelScheduledValues(context.currentTime);
+      resetGain(context, gainNode);
+
+      // Fade back in
       gainNode.gain.setValueAtTime(0, context.currentTime);
       gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 3);
 
