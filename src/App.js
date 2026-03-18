@@ -60,8 +60,9 @@ const toggleSound = () => {
 
   } else {
 
-    gainNode.gain.setValueAtTime(gainNode.gain.value, context.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 4);
+resetGain(context, gainNode);
+
+gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 4);
 
     // 🚨 store timeout so we can cancel it later
     pauseTimeoutRef.current = setTimeout(() => {
