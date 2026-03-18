@@ -7,6 +7,7 @@ export default function App() {
   const audioRef = useRef(null);
   const audioContextRef = useRef(null);
   const gainNodeRef = useRef(null);
+  const pauseTimeoutRef = useRef(null);
 
   // 🔑 Safely reset gain before any new fade
   const resetGain = (context, gainNode) => {
@@ -14,59 +15,65 @@ export default function App() {
     gainNode.gain.setValueAtTime(gainNode.gain.value, context.currentTime);
   };
 
-  const toggleSound = () => {
+const toggleSound = () => {
 
-    const audio = audioRef.current;
-    if (!audio) return;
+  const audio = audioRef.current;
+  if (!audio) return;
 
-    // 🔧 Initialise audio context once
-    if (!audioContextRef.current) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      const context = new AudioContext();
+  // Setup once
+  if (!audioContextRef.current) {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const context = new AudioContext();
 
-      const source = context.createMediaElementSource(audio);
-      const gainNode = context.createGain();
+    const source = context.createMediaElementSource(audio);
+    const gainNode = context.createGain();
 
-      source.connect(gainNode);
-      gainNode.connect(context.destination);
+    source.connect(gainNode);
+    gainNode.connect(context.destination);
 
-      audioContextRef.current = context;
-      gainNodeRef.current = gainNode;
-    }
+    audioContextRef.current = context;
+    gainNodeRef.current = gainNode;
+  }
 
-    const context = audioContextRef.current;
-    const gainNode = gainNodeRef.current;
+  const context = audioContextRef.current;
+  const gainNode = gainNodeRef.current;
 
-    context.resume();
+  context.resume();
 
-    // 🔑 Always reset before any new action
-    resetGain(context, gainNode);
+  // 🚨 CRITICAL: cancel any pending pause
+  if (pauseTimeoutRef.current) {
+    clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = null;
+  }
 
-    if (!soundOn) {
+  // reset gain safely
+  resetGain(context, gainNode);
 
-      audio.play().catch(() => {});
+  if (!soundOn) {
 
-      // 🎧 Fade in (6 seconds)
-      gainNode.gain.setValueAtTime(0, context.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 6);
+    audio.play().catch(() => {});
 
-      setSoundOn(true);
+    gainNode.gain.setValueAtTime(0, context.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 6);
 
-    } else {
+    setSoundOn(true);
 
-      // 🎧 Fade out (4 seconds)
-      gainNode.gain.setValueAtTime(gainNode.gain.value, context.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 4);
+  } else {
 
-      setTimeout(() => {
-        audio.pause();
-      }, 4000);
+    gainNode.gain.setValueAtTime(gainNode.gain.value, context.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 4);
 
-      setSoundOn(false);
+    // 🚨 store timeout so we can cancel it later
+    pauseTimeoutRef.current = setTimeout(() => {
+      audio.pause();
+      pauseTimeoutRef.current = null;
+    }, 4000);
 
-    }
+    setSoundOn(false);
 
-  };
+  }
+
+};
 
   useEffect(() => {
 
