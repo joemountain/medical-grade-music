@@ -58,21 +58,23 @@ const toggleSound = () => {
 
     setSoundOn(true);
 
-  } else {
+} else {
 
-resetGain(context, gainNode);
+  resetGain(context, gainNode);
 
-gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 4);
+  const currentValue = gainNode.gain.value;
+  gainNode.gain.setValueAtTime(currentValue, context.currentTime);
 
-    // 🚨 store timeout so we can cancel it later
-    pauseTimeoutRef.current = setTimeout(() => {
-      audio.pause();
-      pauseTimeoutRef.current = null;
-    }, 4000);
+  gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 4);
 
-    setSoundOn(false);
+  pauseTimeoutRef.current = setTimeout(() => {
+    audio.pause();
+    pauseTimeoutRef.current = null;
+  }, 4000);
 
-  }
+  setSoundOn(false);
+
+}
 
 };
 
