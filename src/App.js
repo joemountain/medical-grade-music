@@ -28,9 +28,11 @@ const fadeAudio = (targetVolume, duration) => {
     audio.volume =
       startVolume + (targetVolume - startVolume) * curved;
 
-    if (progress < 1) {
-      fadeRef.current = requestAnimationFrame(animate);
-    }
+  if (progress < 1) {
+  fadeRef.current = requestAnimationFrame(animate);
+} else {
+  audio.volume = targetVolume;
+}
 
   };
 
