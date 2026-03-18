@@ -58,10 +58,6 @@ if (!soundOn) {
 
   fadeAudio(0, 4000);
 
-  setTimeout(()=>{
-  audio.pause();
-},4200);
-
   setSoundOn(false);
 
 }
