@@ -50,7 +50,7 @@ if (!soundOn) {
 
   audio.volume = 0.001;
 
-  audio.play();
+ audio.play().catch(() => {});
 
   setSoundOn(true);
 
@@ -59,6 +59,15 @@ if (!soundOn) {
 } else {
 
   fadeAudio(0, 4000);
+
+  setTimeout(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.pause();
+    audio.volume = 0; // reset cleanly
+
+  }, 4000);
 
   setSoundOn(false);
 
