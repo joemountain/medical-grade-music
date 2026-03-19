@@ -54,7 +54,7 @@ const toggleSound = () => {
     audio.play().catch(() => {});
 
     gainNode.gain.setValueAtTime(0, context.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 6);
+gainNode.gain.setTargetAtTime(0.18, context.currentTime, 2);
 
     setSoundOn(true);
 
@@ -65,7 +65,7 @@ const toggleSound = () => {
   const currentValue = gainNode.gain.value;
   gainNode.gain.setValueAtTime(currentValue, context.currentTime);
 
-  gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 4);
+ gainNode.gain.setTargetAtTime(0, context.currentTime, 1.5);
 
   pauseTimeoutRef.current = setTimeout(() => {
     audio.pause();
@@ -92,7 +92,7 @@ const toggleSound = () => {
       resetGain(context, gainNode);
 
       // Fade out quickly when tab hidden
-      gainNode.gain.linearRampToValueAtTime(0, context.currentTime + 1);
+  gainNode.gain.setTargetAtTime(0, context.currentTime, 0.3);
 
     };
 
@@ -109,7 +109,7 @@ const toggleSound = () => {
 
       // Fade back in
       gainNode.gain.setValueAtTime(0, context.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.18, context.currentTime + 3);
+     gainNode.gain.setTargetAtTime(0.18, context.currentTime, 1);
 
     };
 
