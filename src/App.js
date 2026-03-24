@@ -160,9 +160,7 @@ gainNode.gain.setTargetAtTime(0.18, context.currentTime, 2);
             MEDICAL GRADE MUSIC
           </h1>
 
-          <p>
-            No cure. Coming Soon.
-          </p>
+          <p className="subtitle">No cure. Coming Soon.</p>
 
           <div className="audio-controls">
 
